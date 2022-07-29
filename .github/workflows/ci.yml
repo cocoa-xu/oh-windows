@@ -54,8 +54,6 @@ jobs:
           arch: x64
       - name: Compile and Test
         run: |
-          Get-Command mix | Select-Object -ExpandProperty Definition
-          Get-Command erl | Select-Object -ExpandProperty Definition
           mix deps.get
           mix test
 
@@ -80,5 +78,6 @@ jobs:
           elixir-version: 1.13.4
       - name: Compile and Test
         run: |
+          export PATH="${INSTALL_DIR_FOR_ELIXIR}/bin:${INSTALL_DIR_FOR_OTP}/bin:${PATH}"
           mix deps.get
           mix test
