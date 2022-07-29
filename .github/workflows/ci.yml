@@ -78,8 +78,8 @@ jobs:
           elixir-version: 1.13.4
       - name: Compile and Test
         run: |
-          export INSTALL_DIR_FOR_ELIXIR=$(echo "/${INSTALL_DIR_FOR_ELIXIR}" | sed -e "s#\\#/#" | sed -e "s#:##")
-          export INSTALL_DIR_FOR_OTP=$(echo "/${INSTALL_DIR_FOR_OTP}" | sed -e "s#\\#/#" | sed -e "s#:##")
+          export INSTALL_DIR_FOR_ELIXIR=$(echo "/${INSTALL_DIR_FOR_ELIXIR}" | sed -e "s#\\\\#/#" | sed -e "s#:##")
+          export INSTALL_DIR_FOR_OTP=$(echo "/${INSTALL_DIR_FOR_OTP}" | sed -e "s#\\\\#/#" | sed -e "s#:##")
           echo "INSTALL_DIR_FOR_ELIXIR: ${INSTALL_DIR_FOR_ELIXIR}"
           echo "INSTALL_DIR_FOR_OTP: ${INSTALL_DIR_FOR_OTP}"
           export PATH="${INSTALL_DIR_FOR_ELIXIR}/bin:${INSTALL_DIR_FOR_OTP}/bin:${PATH}"
