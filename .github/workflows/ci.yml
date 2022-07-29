@@ -54,8 +54,8 @@ jobs:
           arch: x64
       - name: Compile and Test
         run: |
-          where mix
-          where erl
+          Get-Command mix | Select-Object -ExpandProperty Definition
+          Get-Command erl | Select-Object -ExpandProperty Definition
           mix deps.get
           mix test
 
