@@ -62,8 +62,8 @@ jobs:
     env:
       MIX_ENV: test
     defaults:
-    run:
-      shell: msys2 {0}
+      run:
+        shell: msys2 {0}
     steps:
       - uses: msys2/setup-msys2@v2
         with:
