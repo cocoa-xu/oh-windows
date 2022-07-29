@@ -54,6 +54,8 @@ jobs:
           arch: x64
       - name: Compile and Test
         run: |
+          where mix
+          where erl
           mix deps.get
           mix test
 
