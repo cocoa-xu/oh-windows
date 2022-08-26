@@ -2,18 +2,23 @@ name: linux-precompile-musl
 
 on:
   push:
-    branch:
+    branches:
       - main
 
 jobs:
   mix_test:
     runs-on: ubuntu-20.04
+    container: alpine:latest
     steps:
-      - name: Install Zig
-        uses: goto-bus-stop/setup-zig@v1
-        with:
-          version: "0.8.0"
-
-      - name: Install system dependecies
+      - name: Mix compile
         run: |
-          echo "$(which zig)"
+          mkdir -p _build/dev/lib/evision/priv
+          echo "hello" > _build/dev/lib/evision/priv/evision.so
+          pwd
+          ls -la
+
+      - name: Create precompiled library
+        run: |
+          pwd
+          ls -la
+          cat _build/dev/lib/evision/priv/evision.so
