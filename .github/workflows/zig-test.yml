@@ -1,0 +1,19 @@
+name: linux-precompile-musl
+
+on:
+  push:
+    branch:
+      - main
+
+jobs:
+  mix_test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install Zig
+        uses: goto-bus-stop/setup-zig@v1
+        with:
+          version: "0.8.0"
+
+      - name: Install system dependecies
+        run: |
+          echo "$(which zig)"
