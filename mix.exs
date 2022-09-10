@@ -29,7 +29,9 @@ defmodule StbImage.MixProject do
     [
       {:elixir_make, "~> 0.6"},
       {:nx, "~> 0.1", optional: true},
-      {:ex_doc, "~> 0.23", only: :docs, runtime: false}
+      {:ex_doc, "~> 0.23", only: :docs, runtime: false},
+      {:scidata, "~> 0.1", only: :test},
+      {:castore, "~> 0.1", only: :test}
     ]
   end
 
