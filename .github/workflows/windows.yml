@@ -38,12 +38,14 @@ jobs:
 
       - name: Compile Perl
         run: |
+          cd perl-5.38.2/win32
           nmake
           nmake install
-          
+
       - name: Create tarball
         shell: bash
         run: |
+          export ROOT_DIR=$(pwd)
           tar -czf "${ROOT_DIR}/perl-${{ matrix.pair.arch }}.tar.gz" -C /c/perl .
 
       - name: Upload build artifacts
