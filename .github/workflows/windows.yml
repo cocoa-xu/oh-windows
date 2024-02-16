@@ -6,8 +6,16 @@ on:
 jobs:
   windows:
     runs-on: windows-2019
-    env:
-      vcvarsall: amd64_arm64
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - pair:
+              arch: aarch64
+              vcvarsall: amd64_arm64
+          - pair:
+              arch: x86_64
+              vcvarsall: x64
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -21,8 +29,22 @@ jobs:
           curl -fSL https://www.openssl.org/source/openssl-3.2.1.tar.gz -o openssl-3.2.1.tar.gz
           tar -xzf openssl-3.2.1.tar.gz
 
+      - name: Compile Perl
+        shell: bash
+        run: |
+          export ROOT_DIR=$(pwd)
           cd perl-5.38.2/win32
           sed -i 's/#CCTYPE		= MSVC143/CCTYPE		= MSVC143/' Makefile || true
-          
+          nmake
+          nmake install
+          tar -czf "${ROOT_DIR}/perl-${{ matrix.pair.arch }}.tar.gz" -C /c/perl .
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: perl-${{ matrix.pair.arch }}.tar.gz
+          path: perl-${{ matrix.pair.arch }}.tar.gz
+
       - name: Setup tmate session
+        if: ${{ matrix.pair.vcvarsall }} == 'amd64_arm64'
         uses: mxschmitt/action-tmate@v3
