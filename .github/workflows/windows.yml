@@ -35,6 +35,10 @@ jobs:
           export ROOT_DIR=$(pwd)
           cd perl-5.38.2/win32
           sed -i 's/#CCTYPE		= MSVC143/CCTYPE		= MSVC143/' Makefile || true
+          if [ "${{ matrix.pair.arch }}" = "aarch64" ]; then
+            sed -i 's/ARCHITECTURE = $(PROCESSOR_ARCHITECTURE)/ARCHITECTURE = arm64/' Makefile || true
+            grep ARCHITECTURE Makefile
+          fi
 
       - name: Compile Perl
         run: |
