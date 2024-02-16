@@ -6,56 +6,18 @@ on:
 jobs:
   windows:
     runs-on: windows-2019
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - pair:
-              arch: aarch64
-              vcvarsall: amd64_arm64
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
-          arch: ${{ matrix.pair.vcvarsall }}
+          arch: x64
 
       - name: Download
         shell: bash
         run: |
-          curl -fSL https://www.cpan.org/src/5.0/perl-5.38.2.tar.gz -o perl-5.38.2.tar.gz
-          tar -xzf perl-5.38.2.tar.gz
+          curl -fSL https://github.com/cocoa-xu/perl-windows-build/releases/download/v5.38.2/perl-x86_64-windows-msvc.tar.gz -o perl-x86_64-windows-msvc.tar.gz
+          mkdir -p /c/perl
           curl -fSL https://www.openssl.org/source/openssl-3.2.1.tar.gz -o openssl-3.2.1.tar.gz
           tar -xzf openssl-3.2.1.tar.gz
 
-      - name: Setup Perl
-        shell: bash
-        run: |
-          export ROOT_DIR=$(pwd)
-          cd perl-5.38.2/win32
-          sed -i 's/#CCTYPE		= MSVC143/CCTYPE		= MSVC143/' Makefile || true
-          if [ "${{ matrix.pair.arch }}" = "aarch64" ]; then
-            sed -i 's/ARCHITECTURE = $(PROCESSOR_ARCHITECTURE)/ARCHITECTURE = arm64/' Makefile || true
-            sed -i 's/-machine:$(PROCESSOR_ARCHITECTURE)/-machine:arm64/' Makefile || true
-            grep ARCHITECTURE Makefile
-          fi
-
-      - name: Compile Perl
-        run: |
-          cd perl-5.38.2/win32
-          nmake
-          nmake install
-
-      - name: Create tarball
-        shell: bash
-        run: |
-          export ROOT_DIR=$(pwd)
-          tar -czf "${ROOT_DIR}/perl-${{ matrix.pair.arch }}.tar.gz" -C /c/perl .
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: perl-${{ matrix.pair.arch }}.tar.gz
-          path: perl-${{ matrix.pair.arch }}.tar.gz
-
       - name: Setup tmate session
-        if: ${{ matrix.pair.vcvarsall }} == 'amd64_arm64'
         uses: mxschmitt/action-tmate@v3
