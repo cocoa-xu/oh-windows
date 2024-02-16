@@ -13,9 +13,6 @@ jobs:
           - pair:
               arch: aarch64
               vcvarsall: amd64_arm64
-          - pair:
-              arch: x86_64
-              vcvarsall: x64
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
@@ -37,6 +34,7 @@ jobs:
           sed -i 's/#CCTYPE		= MSVC143/CCTYPE		= MSVC143/' Makefile || true
           if [ "${{ matrix.pair.arch }}" = "aarch64" ]; then
             sed -i 's/ARCHITECTURE = $(PROCESSOR_ARCHITECTURE)/ARCHITECTURE = arm64/' Makefile || true
+            sed -i 's/-machine:$(PROCESSOR_ARCHITECTURE)/-machine:arm64/' Makefile || true
             grep ARCHITECTURE Makefile
           fi
 
