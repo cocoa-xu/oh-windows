@@ -9,13 +9,15 @@ jobs:
     steps:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
-          arch: x64
+          arch: amd64_arm64
 
       - name: Download
         shell: bash
         run: |
           curl -fSL https://github.com/cocoa-xu/perl-windows-build/releases/download/v5.38.2/perl-x86_64-windows-msvc.tar.gz -o perl-x86_64-windows-msvc.tar.gz
           mkdir -p /c/perl
+          tar -xzf perl-x86_64-windows-msvc.tar.gz -C /c/perl 2>/dev/null
+          export PATH=/c/perl/bin:${PATH}
           curl -fSL https://www.openssl.org/source/openssl-3.2.1.tar.gz -o openssl-3.2.1.tar.gz
           tar -xzf openssl-3.2.1.tar.gz
 
