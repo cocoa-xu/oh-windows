@@ -1,0 +1,16 @@
+name: windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-2019
+    env:
+      vcvarsall: amd64_arm64
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: ${{ matrix.pair.vcvarsall }}
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
