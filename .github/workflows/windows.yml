@@ -12,5 +12,17 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: ${{ matrix.pair.vcvarsall }}
+
+      - name: Download
+        shell: bash
+        run: |
+          curl -fSL https://www.cpan.org/src/5.0/perl-5.38.2.tar.gz -o perl-5.38.2.tar.gz
+          tar -xzf perl-5.38.2.tar.gz
+          curl -fSL https://www.openssl.org/source/openssl-3.2.1.tar.gz -o openssl-3.2.1.tar.gz
+          tar -xzf openssl-3.2.1.tar.gz
+
+          cd perl-5.38.2/win32
+          sed -i 's/#CCTYPE		= MSVC143/CCTYPE		= MSVC143/' Makefile || true
+          
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
