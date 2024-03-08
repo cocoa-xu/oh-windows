@@ -5,7 +5,10 @@ on:
     inputs:
       os:
         default: "windows-2019"
-        required: false
+        required: true
+      otp_version:
+        default: "26"
+        required: true
 
 jobs:
   windows:
@@ -13,6 +16,7 @@ jobs:
     steps:
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: "21.0"
+          otp-version: ${{ inputs.otp_version }}
+          elixir-version: "1.16"
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
