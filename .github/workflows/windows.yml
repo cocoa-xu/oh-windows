@@ -9,6 +9,9 @@ on:
       otp_version:
         default: "26"
         required: true
+      elixir_version:
+        default: "1.16"
+        required: true
 
 jobs:
   windows:
@@ -17,6 +20,6 @@ jobs:
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{ inputs.otp_version }}
-          elixir-version: "1.16"
+          elixir-version: ${{ inputs.elixir_version }}
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
