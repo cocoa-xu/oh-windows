@@ -1,4 +1,4 @@
-name: windows
+name: playground
 
 on:
   workflow_dispatch:
