@@ -17,5 +17,9 @@ jobs:
   windows:
     runs-on: ${{ inputs.os }}
     steps:
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ inputs.otp_version }}
+          elixir-version: ${{ inputs.elixir_version }}
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
