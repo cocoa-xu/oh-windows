@@ -1,0 +1,15 @@
+name: plain-playground
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        default: "macos-11"
+        required: true
+
+jobs:
+  windows:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
