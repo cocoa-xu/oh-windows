@@ -1,4 +1,4 @@
-name: playground
+name: playground-postgres
 
 on:
   workflow_dispatch:
@@ -12,6 +12,9 @@ on:
       elixir_version:
         default: "1.16"
         required: true
+      postgres_version:
+        default: "14"
+        required: true
 
 jobs:
   windows:
@@ -19,7 +22,7 @@ jobs:
 
     services:
       pg:
-        image: postgres:11
+        image: postgres:${{ inputs.postgres_version }}
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
