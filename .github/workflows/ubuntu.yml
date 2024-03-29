@@ -1,0 +1,15 @@
+name: playground-linux
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        default: "ubuntu-22.04"
+        required: true
+
+jobs:
+  windows:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
