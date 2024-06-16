@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: free disk space
+        shell: bash
         if: contains(runner.os, 'ubuntu')
         run: |
           df -h
