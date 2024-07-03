@@ -14,8 +14,8 @@ jobs:
       - name: Install CUDA with cudnn ${{ matrix.pair.cudnn_major }}
         uses: cocoa-xu/cuda-toolkit@v0.6.0
         with:
-          cuda: ${{ matrix.pair.cuda_major }}.${{ matrix.pair.cuda_minor }}.${{ matrix.pair.cuda_patch }}
-          cudnn: ${{ matrix.pair.cudnn_major }}.${{ matrix.pair.cudnn_minor }}.${{ matrix.pair.cudnn_patch }}
+          cuda: 12.5.0
+          cudnn: 9.2.0
       - name: Setup tmate session
         if: always()
         uses: mxschmitt/action-tmate@v3
