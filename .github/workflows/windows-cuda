@@ -1,0 +1,21 @@
+name: playground
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        default: "windows-2019"
+        required: true
+
+jobs:
+  windows:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Install CUDA with cudnn ${{ matrix.pair.cudnn_major }}
+        uses: cocoa-xu/cuda-toolkit@v0.6.0
+        with:
+          cuda: ${{ matrix.pair.cuda_major }}.${{ matrix.pair.cuda_minor }}.${{ matrix.pair.cuda_patch }}
+          cudnn: ${{ matrix.pair.cudnn_major }}.${{ matrix.pair.cudnn_minor }}.${{ matrix.pair.cudnn_patch }}
+      - name: Setup tmate session
+        if: always()
+        uses: mxschmitt/action-tmate@v3
