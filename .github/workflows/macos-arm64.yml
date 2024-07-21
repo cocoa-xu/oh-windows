@@ -13,7 +13,5 @@ jobs:
     steps:
       - run: |
           brew install docker colima
-          sudo brew services start colima
-          colima start
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
