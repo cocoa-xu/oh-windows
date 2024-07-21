@@ -1,0 +1,15 @@
+name: playground-arm64-macos
+
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        default: "macos-14"
+        required: true
+
+jobs:
+  windows:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
