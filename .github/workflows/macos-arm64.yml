@@ -11,5 +11,8 @@ jobs:
   windows:
     runs-on: ${{ inputs.os }}
     steps:
+      - run: |
+          brew install docker colima
+          colima start
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
