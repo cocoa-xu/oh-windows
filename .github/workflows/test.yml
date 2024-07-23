@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       os:
-        default: "macos-11"
+        default: "ubuntu-latest"
         required: true
 
 jobs:
@@ -12,11 +12,7 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: Show disk space
+      - name: Show head commit
         run: |
-          df -h
-      - name: free disk space
-        shell: bash
-        if: contains(runner.os, 'ubuntu')
-        run: |
-          bash ./free-disk-space.sh
+          echo ${{ github.event.head_commit.id }}
+          echo $(git rev-parse HEAD)
