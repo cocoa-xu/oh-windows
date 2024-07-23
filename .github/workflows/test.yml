@@ -6,6 +6,9 @@ on:
       os:
         default: "ubuntu-latest"
         required: true
+  push:
+    branches:
+      - main
 
 jobs:
   windows:
