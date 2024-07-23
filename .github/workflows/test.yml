@@ -2,17 +2,13 @@ name: Test
 
 on:
   workflow_dispatch:
-    inputs:
-      os:
-        default: "ubuntu-latest"
-        required: true
   push:
     branches:
       - main
 
 jobs:
   windows:
-    runs-on: ${{ inputs.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Show head commit
