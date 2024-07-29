@@ -8,13 +8,12 @@ on:
 
 jobs:
   windows:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
-      - name: Show head commit
-        run: |
-          echo ${{ github.event.head_commit.id }}
-          echo $(git rev-parse HEAD)
-
-          echo ${{ github.event.head_commit.message }}
-          echo toJSON(github.event.head_commit.message)
+      - name: Install GStreamer
+        if: steps.check-precompiled-nif.outputs.exists == 'false'
+        uses: blinemedical/setup-gstreamer@v1.4.0
+        with:
+          version: "1.24.5"
+          arch: "x86_64"
