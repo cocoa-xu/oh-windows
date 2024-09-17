@@ -11,17 +11,17 @@ jobs:
   linux:
     runs-on: ${{ inputs.os }}
     steps:
-      - name: Install GStreamer
-        id: setup_gstreamer
-        uses: blinemedical/setup-gstreamer@v1.4.0
-        with:
-          version: "1.22.12"
-          arch: "x86_64"
-
-      - name: Cache GStreamer
-        id: cache-gstreamer
+      - name: Step 1
+        continue-on-error: true
         run: |
-          echo "${{ steps.setup_gstreamer.outputs.gstreamerPath }}"
+          exit 1
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      - name: Step 2
+        continue-on-error: true
+        run: |
+          echo ok
+
+      - name: Step 3
+        continue-on-error: true
+        run: |
+          exit 2
