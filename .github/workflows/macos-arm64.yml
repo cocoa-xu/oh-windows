@@ -12,6 +12,8 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
       - run: |
-          brew install docker colima
+          export WXWIDGETS_FILENAME="wxWidgets-static-arm64-apple-darwin.tar.gz"
+          curl -fSL "https://github.com/cocoa-xu/wxWidgets-build/releases/download/v3.2.6/${WXWIDGETS_FILENAME}" -o "${WXWIDGETS_FILENAME}"
+          sudo tar -C "/usr/local" -xf "${WXWIDGETS_FILENAME}"
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
