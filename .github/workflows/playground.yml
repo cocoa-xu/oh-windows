@@ -11,8 +11,5 @@ jobs:
   windows:
     runs-on: ${{ inputs.os }}
     steps:
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
